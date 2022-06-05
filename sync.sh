@@ -14,6 +14,7 @@ then
     echo "No changes present"
 else
     echo "Found remote changes, pulling from source..."
+    git stash
     git pull origin main
     echo "Restarting the api..."
     declare foundProcesses=$(sudo ss -lptn 'sport = :80')
