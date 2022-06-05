@@ -23,9 +23,9 @@ else
         echo "Killing $pid"
         sudo kill $pid
         echo "Starting..."
-        sudo npm start
+        sudo nohup npm start $
     else
         echo "Starting..."
-        sudo npm start
+        sudo nohup npm start $
     fi
 fi
