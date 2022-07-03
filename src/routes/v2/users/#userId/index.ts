@@ -5,7 +5,7 @@ import Config from "../../../../Config";
 import { getUser, getUserByUsername } from "../../../../handlers/Users";
 import { collections } from "../../../../services/database.service";
 import Logger from "../../../../utils/Logger";
-import { sendError } from "../../../../utils/Utils";
+import { blockedUsernames, sendError } from "../../../../utils/Utils";
 const router = Router();
 
 type EditUserBody = {
@@ -55,7 +55,7 @@ router.patch("/", async (req: Request, res: Response) => {
             });
         }
         let existing = await getUserByUsername(body.username);
-        if(existing) {
+        if(existing || blockedUsernames.includes(body.username.toLowerCase())) {
             errors.push({
                 status: 400,
                 error: "Username already taken.",

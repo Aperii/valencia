@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
 import { collections } from "../../../services/database.service";
-import { sendError } from "../../../utils/Utils";
+import { blockedUsernames, sendError } from "../../../utils/Utils";
 import { hash } from "bcrypt"
 import { sign } from "jsonwebtoken"
 import { Snowflake } from "../../../utils/Snowflake";
@@ -23,7 +23,7 @@ router.post("/", RateLimiters.Auth, async (req: Request, res: Response) => {
     }
 
     let isUsernameTaken = await collections.users.findOne({  username: body.username });
-    if(isUsernameTaken) {
+    if(isUsernameTaken || blockedUsernames.includes(body.username.toLowerCase()) ) {
         sendError(res, 400, "Username is already taken");
         return;
     }
