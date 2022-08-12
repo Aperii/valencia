@@ -20,6 +20,9 @@ let noAuth: (string|RegExp)[] = [
     
     //OEmbed
     "/v2/oembed",
+
+    //Public connections
+    "/v2/connected/by",
 ];
 
 declare global {
