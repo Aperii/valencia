@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 
     if(!connection) return sendError(res, 404, "No user found with that connection.")
 
-    res.send(await getUser(connection.user, req.me.id === connection.user))
+    res.send(await getUser(connection.user, req.me?.id === connection.user))
 })
 
 export default router
